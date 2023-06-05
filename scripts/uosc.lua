@@ -140,33 +140,33 @@ t = intl.t
 
 function create_default_menu()
 	return {
-		{title = t('Subtitles'), value = 'script-binding uosc/subtitles'},
-		{title = t('Audio tracks'), value = 'script-binding uosc/audio'},
-		{title = t('Stream quality'), value = 'script-binding uosc/stream-quality'},
-		{title = t('Playlist'), value = 'script-binding uosc/items'},
-		{title = t('Chapters'), value = 'script-binding uosc/chapters'},
-		{title = t('Navigation'), items = {
-			{title = t('Next'), hint = t('playlist or file'), value = 'script-binding uosc/next'},
-			{title = t('Prev'), hint = t('playlist or file'), value = 'script-binding uosc/prev'},
-			{title = t('Delete file & Next'), value = 'script-binding uosc/delete-file-next'},
-			{title = t('Delete file & Prev'), value = 'script-binding uosc/delete-file-prev'},
-			{title = t('Delete file & Quit'), value = 'script-binding uosc/delete-file-quit'},
-			{title = t('Open file'), value = 'script-binding uosc/open-file'},
+		{title = t('字幕'), value = 'script-binding uosc/subtitles'},
+		{title = t('音轨'), value = 'script-binding uosc/audio'},
+		{title = t('流媒体质量'), value = 'script-binding uosc/stream-quality'},
+		{title = t('播放列表'), value = 'script-binding uosc/items'},
+		{title = t('章节'), value = 'script-binding uosc/chapters'},
+		{title = t('导航'), items = {
+			{title = t('下一个'), hint = t('播放列表或文件'), value = 'script-binding uosc/next'},
+			{title = t('上一个'), hint = t('播放列表或文件'), value = 'script-binding uosc/prev'},
+			{title = t('删除并播放下一个'), value = 'script-binding uosc/delete-file-next'},
+			{title = t('删除并播放上一个'), value = 'script-binding uosc/delete-file-prev'},
+			{title = t('删除文件并退出'), value = 'script-binding uosc/delete-file-quit'},
+			{title = t('打开文件'), value = 'script-binding uosc/open-file'},
 		},},
-		{title = t('Utils'), items = {
-			{title = t('Aspect ratio'), items = {
-				{title = t('Default'), value = 'set video-aspect-override "-1"'},
+		{title = t('工具'), items = {
+			{title = t('画面比例'), items = {
+				{title = t('默认值'), value = 'set video-aspect-override "-1"'},
 				{title = '16:9', value = 'set video-aspect-override "16:9"'},
 				{title = '4:3', value = 'set video-aspect-override "4:3"'},
 				{title = '2.35:1', value = 'set video-aspect-override "2.35:1"'},
 			},},
-			{title = t('Audio devices'), value = 'script-binding uosc/audio-device'},
-			{title = t('Editions'), value = 'script-binding uosc/editions'},
-			{title = t('Screenshot'), value = 'async screenshot'},
-			{title = t('Show in directory'), value = 'script-binding uosc/show-in-directory'},
-			{title = t('Open config folder'), value = 'script-binding uosc/open-config-directory'},
+			{title = t('音频设备'), value = 'script-binding uosc/audio-device'},
+			{title = t('版本'), value = 'script-binding uosc/editions'},
+			{title = t('截图'), value = 'async screenshot'},
+			{title = t('在文件夹中查看'), value = 'script-binding uosc/show-in-directory'},
+			{title = t('打开配置文件夹'), value = 'script-binding uosc/open-config-directory'},
 		},},
-		{title = t('Quit'), value = 'quit'},
+		{title = t('退出'), value = 'quit'},
 	}
 end
 
@@ -952,21 +952,21 @@ for _, loader in ipairs(track_loaders) do
 		open_file_navigation_menu(
 			path,
 			function(path) mp.commandv(loader.prop .. '-add', path) end,
-			{type = menu_type, title = t('Load ' .. loader.name), allowed_types = loader.allowed_types}
+			{type = menu_type, title = t('加载 ' .. loader.name), allowed_types = loader.allowed_types}
 		)
 	end)
 end
 bind_command('subtitles', create_select_tracklist_type_menu_opener(
-	t('Subtitles'), 'sub', 'sid', 'script-binding uosc/load-subtitles'
+	t('字幕'), 'sub', 'sid', 'script-binding uosc/load-subtitles'
 ))
 bind_command('audio', create_select_tracklist_type_menu_opener(
-	t('Audio'), 'audio', 'aid', 'script-binding uosc/load-audio'
+	t('音频'), 'audio', 'aid', 'script-binding uosc/load-audio'
 ))
 bind_command('video', create_select_tracklist_type_menu_opener(
-	t('Video'), 'video', 'vid', 'script-binding uosc/load-video'
+	t('视频'), 'video', 'vid', 'script-binding uosc/load-video'
 ))
 bind_command('playlist', create_self_updating_menu_opener({
-	title = t('Playlist'),
+	title = t('播放列表'),
 	type = 'playlist',
 	list_prop = 'playlist',
 	serializer = function(playlist)
@@ -990,7 +990,7 @@ bind_command('playlist', create_self_updating_menu_opener({
 	on_delete_item = function(index) mp.commandv('playlist-remove', tostring(index - 1)) end,
 }))
 bind_command('chapters', create_self_updating_menu_opener({
-	title = t('Chapters'),
+	title = t('章节'),
 	type = 'chapters',
 	list_prop = 'chapter-list',
 	active_prop = 'chapter',
@@ -1010,7 +1010,7 @@ bind_command('chapters', create_self_updating_menu_opener({
 	on_select = function(index) mp.commandv('set', 'chapter', tostring(index - 1)) end,
 }))
 bind_command('editions', create_self_updating_menu_opener({
-	title = t('Editions'),
+	title = t('版本'),
 	type = 'editions',
 	list_prop = 'edition-list',
 	active_prop = 'current-edition',
@@ -1029,7 +1029,7 @@ bind_command('editions', create_self_updating_menu_opener({
 	end,
 	on_select = function(id) mp.commandv('set', 'edition', id) end,
 }))
-bind_command('show-in-directory', function()
+bind_command('在文件夹中查看', function()
 	-- Ignore URLs
 	if not state.path or is_protocol(state.path) then return end
 
@@ -1057,7 +1057,7 @@ bind_command('stream-quality', function()
 		items[#items + 1] = {title = height .. 'p', value = format, active = format == ytdl_format}
 	end
 
-	Menu:open({type = 'stream-quality', title = t('Stream quality'), items = items}, function(format)
+	Menu:open({type = 'stream-quality', title = t('流媒体质量'), items = items}, function(format)
 		mp.set_property('ytdl-format', format)
 
 		-- Reload the video to apply new format
@@ -1187,7 +1187,7 @@ bind_command('delete-file-quit', function()
 	mp.command('quit')
 end)
 bind_command('audio-device', create_self_updating_menu_opener({
-	title = t('Audio devices'),
+	title = t('音频设备'),
 	type = 'audio-device-list',
 	list_prop = 'audio-device-list',
 	active_prop = 'audio-device',
@@ -1200,7 +1200,7 @@ bind_command('audio-device', create_self_updating_menu_opener({
 				local hint = string.match(device.name, ao .. '/(.+)')
 				if not hint then hint = device.name end
 				items[#items + 1] = {
-					title = device.description:sub(1, 7) == 'Default' and t('Default %s', device.description:sub(9)) or t(device.description),
+					title = device.description:sub(1, 7) == '默认' and t('默认 %s', device.description:sub(9)) or t(device.description),
 					hint = hint,
 					active = device.name == current_device,
 					value = device.name,

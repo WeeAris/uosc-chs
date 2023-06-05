@@ -620,9 +620,9 @@ function normalize_chapters(chapters)
 	for index, chapter in ipairs(chapters) do
 		local chapter_number = chapter.title and string.match(chapter.title, '^Chapter (%d+)$')
 		if chapter_number then
-			chapter.title = t('Chapter %s', tonumber(chapter_number))
+			chapter.title = t('章节 %s', tonumber(chapter_number))
 		end
-		chapter.title = chapter.title ~= '(unnamed)' and chapter.title ~= '' and chapter.title or t('Chapter %s', index)
+		chapter.title = chapter.title ~= '(unnamed)' and chapter.title ~= '' and chapter.title or t('章节 %s', index)
 		chapter.lowercase_title = chapter.title:lower()
 	end
 	return chapters

@@ -157,7 +157,7 @@ function Menu:update(data)
 		-- Update items
 		local first_active_index = nil
 		menu.items = {
-			{title = t('Empty'), value = 'ignore', italic = 'true', muted = 'true', selectable = false, align = 'center'}
+			{title = t('无'), value = 'ignore', italic = 'true', muted = 'true', selectable = false, align = 'center'}
 		}
 
 		for i, item_data in ipairs(menu_data.items or {}) do
